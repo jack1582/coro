@@ -43,6 +43,25 @@ extern "C" {
     ssize_t coro_sendto(int fd, const void *msg, size_t len, int flags, const struct sockaddr *to, socklen_t tolen);
     ssize_t coro_recvmsg(int fd, struct msghdr *msg, int flags);
     ssize_t coro_sendmsg(int fd, const struct msghdr *msg, int flags);
+
+//---------------------------------
+    int _coro_ctx_run_count(); // for debug and test 
+    int _coro_ctx_active_count(); // for debug and test 
+    int _coro_ctx_total_count(); // for debug and test 
+    int _coro_seq_id();
+#define _coro_ctx(member) _coro_ctx_##member()
+#define _coro(member) _coro_##member()
+
+/* #define NDEBUG 1 */
+
+#ifndef NDEBUG
+#define PRINT_D(fmt,args...) printf("PRINT_D:%s:%d: "fmt"\n",__FUNCTION__,__LINE__, ##args)  // debug out put
+#else
+#define PRINT_D(fmt,args...) (void)0
+#endif
+
+
+
 #ifdef __cplusplus
 }
 #endif

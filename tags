@@ -1,0 +1,223 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+CHILD_INDEX	coro.c	107;"	d	file:
+CURRENT	coro.c	94;"	d	file:
+DEFAULT_STACK_SIZE	coro.c	21;"	d	file:
+FL_IDLE	coro.c	/^enum {FL_MAIN=1, FL_IDLE=2, FL_ON_SLEEPQ=4, FL_ON_RUNQ=8};$/;"	e	enum:__anon2	file:
+FL_MAIN	coro.c	/^enum {FL_MAIN=1, FL_IDLE=2, FL_ON_SLEEPQ=4, FL_ON_RUNQ=8};$/;"	e	enum:__anon2	file:
+FL_ON_RUNQ	coro.c	/^enum {FL_MAIN=1, FL_IDLE=2, FL_ON_SLEEPQ=4, FL_ON_RUNQ=8};$/;"	e	enum:__anon2	file:
+FL_ON_SLEEPQ	coro.c	/^enum {FL_MAIN=1, FL_IDLE=2, FL_ON_SLEEPQ=4, FL_ON_RUNQ=8};$/;"	e	enum:__anon2	file:
+HEAP_SWAP	coro.c	109;"	d	file:
+LIST_ADD	coro.c	26;"	d	file:
+LIST_ADD_TAIL	coro.c	27;"	d	file:
+LIST_DEL	coro.c	24;"	d	file:
+LIST_EMPTY	coro.c	25;"	d	file:
+LIST_INIT	coro.c	23;"	d	file:
+LOCAL	coro.c	95;"	d	file:
+N	main.c	140;"	d	file:
+NETOPT	coro.c	570;"	d	file:
+NOT_READY_ERRNO	coro.c	569;"	d	file:
+PARENT_INDEX	coro.c	108;"	d	file:
+PRINT_D	coro.h	58;"	d
+PRINT_D	coro.h	60;"	d
+ROUNDUP	coro.c	482;"	d	file:
+ST_IOWAIT	coro.c	/^enum {ST_RUNNING=1, ST_RUNNABLE, ST_IOWAIT, ST_SLEEPING, ST_ZOMBIE};$/;"	e	enum:__anon1	file:
+ST_RUNNABLE	coro.c	/^enum {ST_RUNNING=1, ST_RUNNABLE, ST_IOWAIT, ST_SLEEPING, ST_ZOMBIE};$/;"	e	enum:__anon1	file:
+ST_RUNNING	coro.c	/^enum {ST_RUNNING=1, ST_RUNNABLE, ST_IOWAIT, ST_SLEEPING, ST_ZOMBIE};$/;"	e	enum:__anon1	file:
+ST_SLEEPING	coro.c	/^enum {ST_RUNNING=1, ST_RUNNABLE, ST_IOWAIT, ST_SLEEPING, ST_ZOMBIE};$/;"	e	enum:__anon1	file:
+ST_ZOMBIE	coro.c	/^enum {ST_RUNNING=1, ST_RUNNABLE, ST_IOWAIT, ST_SLEEPING, ST_ZOMBIE};$/;"	e	enum:__anon1	file:
+_GNU_SOURCE	coro.c	6;"	d	file:
+__CORO_H__	coro.h	7;"	d
+_coro	coro.h	53;"	d
+_coro_ctx	coro.h	52;"	d
+_coro_ctx_active_count	coro.c	/^int _coro_ctx_active_count() $/;"	f
+_coro_ctx_active_count	coro.h	/^    int _coro_ctx_active_count(); \/\/ for debug and test $/;"	p	signature:()
+_coro_ctx_run_count	coro.c	/^int _coro_ctx_run_count() $/;"	f
+_coro_ctx_run_count	coro.h	/^    int _coro_ctx_run_count(); \/\/ for debug and test $/;"	p	signature:()
+_coro_ctx_total_count	coro.c	/^int _coro_ctx_total_count() $/;"	f
+_coro_ctx_total_count	coro.h	/^    int _coro_ctx_total_count(); \/\/ for debug and test $/;"	p	signature:()
+_coro_seq_id	coro.c	/^int _coro_seq_id()$/;"	f
+_coro_seq_id	coro.h	/^    int _coro_seq_id();$/;"	p	signature:()
+_current_coro	coro.c	/^static __thread coro_t              *_current_coro  = NULL;$/;"	v	file:
+_local_context	coro.c	/^static __thread struct coro_context *_local_context = NULL;$/;"	v	typeref:struct:coro_context	file:
+accnum	main.c	/^int accnum = 0;$/;"	v
+active_count	coro.c	/^    int active_count;$/;"	m	struct:coro_context	file:	access:public
+add_to_runq	coro.c	/^static void add_to_runq(struct coro_context *ctx, coro_t *coro)$/;"	f	file:	signature:(struct coro_context *ctx, coro_t *coro)
+add_to_runq	coro.c	/^static void add_to_runq(struct coro_context *ctx, coro_t *coro);$/;"	p	file:	signature:(struct coro_context *ctx, coro_t *coro)
+addr	main.c	/^    struct sockaddr_in addr;$/;"	m	struct:client	typeref:struct:client::sockaddr_in	file:	access:public
+addr_len	main.c	/^    socklen_t addr_len;$/;"	m	struct:client	file:	access:public
+beg	main.c	/^unsigned long long beg = 0;$/;"	v
+client	main.c	/^struct client {$/;"	s	file:
+client::addr	main.c	/^    struct sockaddr_in addr;$/;"	m	struct:client	typeref:struct:client::sockaddr_in	file:	access:public
+client::addr_len	main.c	/^    socklen_t addr_len;$/;"	m	struct:client	file:	access:public
+client::fd	main.c	/^    int fd;$/;"	m	struct:client	file:	access:public
+client_main	main.c	/^void client_main(void *argv)$/;"	f	signature:(void *argv)
+container_of	coro.c	22;"	d	file:
+context	coro.c	/^    ucontext_t context;$/;"	m	struct:coro	file:	access:public
+coro	coro.c	/^    coro_t *coro;$/;"	m	struct:pollctx	file:	access:public
+coro	coro.c	/^struct coro {$/;"	s	file:
+coro::context	coro.c	/^    ucontext_t context;$/;"	m	struct:coro	file:	access:public
+coro::expires	coro.c	/^    uint64_t expires;$/;"	m	struct:coro	file:	access:public
+coro::flags	coro.c	/^    int flags;$/;"	m	struct:coro	file:	access:public
+coro::heap_index	coro.c	/^    int heap_index;$/;"	m	struct:coro	file:	access:public
+coro::links	coro.c	/^    struct list links;$/;"	m	struct:coro	typeref:struct:coro::list	file:	access:public
+coro::schedule_time	coro.c	/^    uint64_t schedule_time;$/;"	m	struct:coro	file:	access:public
+coro::seq_id	coro.c	/^    unsigned short seq_id;$/;"	m	struct:coro	file:	access:public
+coro::state	coro.c	/^    int state;$/;"	m	struct:coro	file:	access:public
+coro::vstackid	coro.c	/^    unsigned int vstackid;$/;"	m	struct:coro	file:	access:public
+coro_accept	coro.c	/^int coro_accept(int fd, struct sockaddr *addr, socklen_t *addrlen)$/;"	f	signature:(int fd, struct sockaddr *addr, socklen_t *addrlen)
+coro_accept	coro.h	/^    int     coro_accept(int fd, struct sockaddr *addr, socklen_t *addrlen);$/;"	p	signature:(int fd, struct sockaddr *addr, socklen_t *addrlen)
+coro_cleanup	coro.c	/^void coro_cleanup(void)$/;"	f	signature:(void)
+coro_cleanup	coro.h	/^    void    coro_cleanup(void);$/;"	p	signature:(void)
+coro_connect	coro.c	/^int coro_connect(int fd, const struct sockaddr *addr, int addrlen)$/;"	f	signature:(int fd, const struct sockaddr *addr, int addrlen)
+coro_connect	coro.h	/^    int     coro_connect(int fd, const struct sockaddr *addr, int addrlen);$/;"	p	signature:(int fd, const struct sockaddr *addr, int addrlen)
+coro_context	coro.c	/^struct coro_context {$/;"	s	file:
+coro_context::active_count	coro.c	/^    int active_count;$/;"	m	struct:coro_context	file:	access:public
+coro_context::cur_seq	coro.c	/^    unsigned short cur_seq;$/;"	m	struct:coro_context	file:	access:public
+coro_context::events	coro.c	/^    struct event events;$/;"	m	struct:coro_context	typeref:struct:coro_context::event	file:	access:public
+coro_context::idle	coro.c	/^    coro_t *idle;$/;"	m	struct:coro_context	file:	access:public
+coro_context::main	coro.c	/^    coro_t *main;$/;"	m	struct:coro_context	file:	access:public
+coro_context::rcvtimeout	coro.c	/^    int rcvtimeout;$/;"	m	struct:coro_context	file:	access:public
+coro_context::run_count	coro.c	/^    int run_count;$/;"	m	struct:coro_context	file:	access:public
+coro_context::runable	coro.c	/^    struct list runable;$/;"	m	struct:coro_context	typeref:struct:coro_context::list	file:	access:public
+coro_context::sndtimeout	coro.c	/^    int sndtimeout;$/;"	m	struct:coro_context	file:	access:public
+coro_context::stack_size	coro.c	/^    int stack_size;$/;"	m	struct:coro_context	file:	access:public
+coro_context::timer	coro.c	/^    struct heap timer;$/;"	m	struct:coro_context	typeref:struct:coro_context::heap	file:	access:public
+coro_context::total_count	coro.c	/^    int total_count;$/;"	m	struct:coro_context	file:	access:public
+coro_context::zombie	coro.c	/^    struct list zombie;$/;"	m	struct:coro_context	typeref:struct:coro_context::list	file:	access:public
+coro_context_destroy	coro.c	/^static void coro_context_destroy(struct coro_context *ctx)$/;"	f	file:	signature:(struct coro_context *ctx)
+coro_create	coro.c	/^coro_t *coro_create(void (*fn) (void *), void *arg)$/;"	f	signature:(void (*fn) (void *), void *arg)
+coro_create	coro.h	/^    coro_t *coro_create(void (*start) (void *arg), void *arg);$/;"	p	signature:(void (*start) (void *arg), void *arg)
+coro_create_impl	coro.c	/^static coro_t *coro_create_impl(struct coro_context *ctx, void (*fn) (void *), void *arg)$/;"	f	file:	signature:(struct coro_context *ctx, void (*fn) (void *), void *arg)
+coro_create_impl	coro.c	/^static coro_t *coro_create_impl(struct coro_context *ctx, void (*fn) (void *), void *arg);$/;"	p	file:	signature:(struct coro_context *ctx, void (*fn) (void *), void *arg)
+coro_exit	coro.c	/^void coro_exit(void)$/;"	f	signature:(void)
+coro_exit	coro.h	/^    void    coro_exit(void);$/;"	p	signature:(void)
+coro_init	coro.c	/^int coro_init(size_t stack_size)$/;"	f	signature:(size_t stack_size)
+coro_init	coro.h	/^    int     coro_init(size_t stack_size);$/;"	p	signature:(size_t stack_size)
+coro_poll	coro.c	/^int coro_poll(int fd, int events, int timeout)$/;"	f	signature:(int fd, int events, int timeout)
+coro_poll	coro.h	/^    int     coro_poll(int fd, int events, int timeout);$/;"	p	signature:(int fd, int events, int timeout)
+coro_read	coro.c	/^ssize_t coro_read(int fd, void *buf, size_t nbyte)$/;"	f	signature:(int fd, void *buf, size_t nbyte)
+coro_read	coro.h	/^    ssize_t coro_read(int fd, void *buf, size_t nbyte);$/;"	p	signature:(int fd, void *buf, size_t nbyte)
+coro_read_fully	coro.c	/^ssize_t coro_read_fully(int fd, void *buf, size_t nbyte)$/;"	f	signature:(int fd, void *buf, size_t nbyte)
+coro_read_fully	coro.h	/^    ssize_t coro_read_fully(int fd, void *buf, size_t nbyte);$/;"	p	signature:(int fd, void *buf, size_t nbyte)
+coro_recv	coro.c	/^ssize_t coro_recv(int fd, void *buf, size_t len, int flags)$/;"	f	signature:(int fd, void *buf, size_t len, int flags)
+coro_recv	coro.h	/^    ssize_t coro_recv(int fd, void *buf, size_t nbyte, int flags);$/;"	p	signature:(int fd, void *buf, size_t nbyte, int flags)
+coro_recvfrom	coro.c	/^ssize_t coro_recvfrom(int fd, void *buf, size_t len, int flags, struct sockaddr *from, socklen_t *fromlen)$/;"	f	signature:(int fd, void *buf, size_t len, int flags, struct sockaddr *from, socklen_t *fromlen)
+coro_recvfrom	coro.h	/^    ssize_t coro_recvfrom(int fd, void *buf, size_t len, int flags, struct sockaddr *from, socklen_t *fromlen);$/;"	p	signature:(int fd, void *buf, size_t len, int flags, struct sockaddr *from, socklen_t *fromlen)
+coro_recvmsg	coro.c	/^ssize_t coro_recvmsg(int fd, struct msghdr *msg, int flags)$/;"	f	signature:(int fd, struct msghdr *msg, int flags)
+coro_recvmsg	coro.h	/^    ssize_t coro_recvmsg(int fd, struct msghdr *msg, int flags);$/;"	p	signature:(int fd, struct msghdr *msg, int flags)
+coro_send	coro.c	/^ssize_t coro_send(int fd, const void *buf, size_t len, int flags)$/;"	f	signature:(int fd, const void *buf, size_t len, int flags)
+coro_send	coro.h	/^    ssize_t coro_send(int fd, const void *buf, size_t nbyte, int flags);$/;"	p	signature:(int fd, const void *buf, size_t nbyte, int flags)
+coro_sendmsg	coro.c	/^ssize_t coro_sendmsg(int fd, const struct msghdr *msg, int flags)$/;"	f	signature:(int fd, const struct msghdr *msg, int flags)
+coro_sendmsg	coro.h	/^    ssize_t coro_sendmsg(int fd, const struct msghdr *msg, int flags);$/;"	p	signature:(int fd, const struct msghdr *msg, int flags)
+coro_sendto	coro.c	/^ssize_t coro_sendto(int fd, const void *msg, size_t len, int flags, const struct sockaddr *to, socklen_t tolen)$/;"	f	signature:(int fd, const void *msg, size_t len, int flags, const struct sockaddr *to, socklen_t tolen)
+coro_sendto	coro.h	/^    ssize_t coro_sendto(int fd, const void *msg, size_t len, int flags, const struct sockaddr *to, socklen_t tolen);$/;"	p	signature:(int fd, const void *msg, size_t len, int flags, const struct sockaddr *to, socklen_t tolen)
+coro_set_rcvtimeout	coro.c	/^void coro_set_rcvtimeout(size_t timeout)$/;"	f	signature:(size_t timeout)
+coro_set_rcvtimeout	coro.h	/^    void    coro_set_rcvtimeout(size_t timeout);$/;"	p	signature:(size_t timeout)
+coro_set_sndtimeout	coro.c	/^void coro_set_sndtimeout(size_t timeout)$/;"	f	signature:(size_t timeout)
+coro_set_sndtimeout	coro.h	/^    void    coro_set_sndtimeout(size_t timeout);$/;"	p	signature:(size_t timeout)
+coro_sleep	coro.c	/^int coro_sleep(int usec)$/;"	f	signature:(int usec)
+coro_sleep	coro.h	/^    int     coro_sleep(int usec);$/;"	p	signature:(int usec)
+coro_t	coro.h	/^    typedef struct coro coro_t;$/;"	t	typeref:struct:coro
+coro_write	coro.c	/^ssize_t coro_write(int fd, const void *buf, size_t nbyte)$/;"	f	signature:(int fd, const void *buf, size_t nbyte)
+coro_write	coro.h	/^    ssize_t coro_write(int fd, const void *buf, size_t nbyte);$/;"	p	signature:(int fd, const void *buf, size_t nbyte)
+coro_yield	coro.c	/^void coro_yield()$/;"	f
+coro_yield	coro.h	/^    void    coro_yield(void);$/;"	p	signature:(void)
+count	main.c	/^int count = 0;$/;"	v
+create_connecter	main.c	/^int create_connecter(const char *addr, unsigned port)$/;"	f	signature:(const char *addr, unsigned port)
+create_listener	main.c	/^int create_listener(const char *addr, unsigned port)$/;"	f	signature:(const char *addr, unsigned port)
+cur_seq	coro.c	/^    unsigned short cur_seq;$/;"	m	struct:coro_context	file:	access:public
+epfd	coro.c	/^    int epfd;$/;"	m	struct:event	file:	access:public
+event	coro.c	/^struct event {$/;"	s	file:
+event::epfd	coro.c	/^    int epfd;$/;"	m	struct:event	file:	access:public
+event::evtlist	coro.c	/^    struct epoll_event evtlist[1024];$/;"	m	struct:event	typeref:struct:event::epoll_event	file:	access:public
+event::fd_data	coro.c	/^    struct fd_data *fd_data;$/;"	m	struct:event	typeref:struct:event::fd_data	file:	access:public
+event::fd_data_size	coro.c	/^    size_t fd_data_size;$/;"	m	struct:event	file:	access:public
+event_add	coro.c	/^static int event_add(struct event *self, struct pollctx *pq)$/;"	f	file:	signature:(struct event *self, struct pollctx *pq)
+event_del	coro.c	/^static void event_del(struct event *self, struct pollctx *pq)$/;"	f	file:	signature:(struct event *self, struct pollctx *pq)
+event_dispatch	coro.c	/^static void event_dispatch(struct event *self, int max)$/;"	f	file:	signature:(struct event *self, int max)
+event_set	coro.c	/^static int event_set(struct event *self, int fd, int events)$/;"	f	file:	signature:(struct event *self, int fd, int events)
+events	coro.c	/^    int events;$/;"	m	struct:pollctx	file:	access:public
+events	coro.c	/^    struct event events;$/;"	m	struct:coro_context	typeref:struct:coro_context::event	file:	access:public
+events	coro.c	/^struct fd_data { unsigned short events; struct pollctx *next; };$/;"	m	struct:fd_data	file:	access:public
+evtlist	coro.c	/^    struct epoll_event evtlist[1024];$/;"	m	struct:event	typeref:struct:event::epoll_event	file:	access:public
+expires	coro.c	/^    uint64_t expires;$/;"	m	struct:coro	file:	access:public
+fd	coro.c	/^    int fd;$/;"	m	struct:pollctx	file:	access:public
+fd	main.c	/^    int fd;$/;"	m	struct:client	file:	access:public
+fd_data	coro.c	/^    struct fd_data *fd_data;$/;"	m	struct:event	typeref:struct:event::fd_data	file:	access:public
+fd_data	coro.c	/^struct fd_data { unsigned short events; struct pollctx *next; };$/;"	s	file:
+fd_data::events	coro.c	/^struct fd_data { unsigned short events; struct pollctx *next; };$/;"	m	struct:fd_data	file:	access:public
+fd_data::next	coro.c	/^struct fd_data { unsigned short events; struct pollctx *next; };$/;"	m	struct:fd_data	typeref:struct:fd_data::pollctx	file:	access:public
+fd_data_expand	coro.c	/^static int fd_data_expand(struct event *self, int maxfd)$/;"	f	file:	signature:(struct event *self, int maxfd)
+fd_data_size	coro.c	/^    size_t fd_data_size;$/;"	m	struct:event	file:	access:public
+flags	coro.c	/^    int flags;$/;"	m	struct:coro	file:	access:public
+heap	coro.c	/^struct heap { size_t nodes; size_t size; coro_t **heaps; };$/;"	s	file:
+heap::heaps	coro.c	/^struct heap { size_t nodes; size_t size; coro_t **heaps; };$/;"	m	struct:heap	file:	access:public
+heap::nodes	coro.c	/^struct heap { size_t nodes; size_t size; coro_t **heaps; };$/;"	m	struct:heap	file:	access:public
+heap::size	coro.c	/^struct heap { size_t nodes; size_t size; coro_t **heaps; };$/;"	m	struct:heap	file:	access:public
+heap_index	coro.c	/^    int heap_index;$/;"	m	struct:coro	file:	access:public
+heap_resize	coro.c	/^static inline int heap_resize(struct heap *h, size_t size)$/;"	f	file:	signature:(struct heap *h, size_t size)
+heap_siftdown	coro.c	/^static inline void heap_siftdown(struct heap *h, size_t pos)$/;"	f	file:	signature:(struct heap *h, size_t pos)
+heap_siftup	coro.c	/^static inline void heap_siftup(struct heap *h, size_t pos)$/;"	f	file:	signature:(struct heap *h, size_t pos)
+heaps	coro.c	/^struct heap { size_t nodes; size_t size; coro_t **heaps; };$/;"	m	struct:heap	file:	access:public
+idle	coro.c	/^    coro_t *idle;$/;"	m	struct:coro_context	file:	access:public
+idle_main	coro.c	/^static void idle_main(void *arg)$/;"	f	file:	signature:(void *arg)
+init_scokaddr	main.c	/^int init_scokaddr(struct sockaddr_in *sockaddr, const char *addr, unsigned port)$/;"	f	signature:(struct sockaddr_in *sockaddr, const char *addr, unsigned port)
+is_wait	coro.c	/^    int is_wait;$/;"	m	struct:pollctx	file:	access:public
+links	coro.c	/^    struct list links;$/;"	m	struct:coro	typeref:struct:coro::list	file:	access:public
+list	coro.c	/^struct list { struct list *next, *prev; };$/;"	s	file:
+list::next	coro.c	/^struct list { struct list *next, *prev; };$/;"	m	struct:list	typeref:struct:list::list	file:	access:public
+list::prev	coro.c	/^struct list { struct list *next, *prev; };$/;"	m	struct:list	typeref:struct:list::	file:	access:public
+listfd	main.c	/^int listfd = 0;$/;"	v
+longnum	main.c	/^unsigned long long longnum = 0;$/;"	v
+main	coro.c	/^    coro_t *main;$/;"	m	struct:coro_context	file:	access:public
+main	main.c	/^int main(int argc, char *argv[])$/;"	f	signature:(int argc, char *argv[])
+next	coro.c	/^    struct pollctx *next;$/;"	m	struct:pollctx	typeref:struct:pollctx::pollctx	file:	access:public
+next	coro.c	/^struct fd_data { unsigned short events; struct pollctx *next; };$/;"	m	struct:fd_data	typeref:struct:fd_data::pollctx	file:	access:public
+next	coro.c	/^struct list { struct list *next, *prev; };$/;"	m	struct:list	typeref:struct:list::list	file:	access:public
+nodes	coro.c	/^struct heap { size_t nodes; size_t size; coro_t **heaps; };$/;"	m	struct:heap	file:	access:public
+pollctx	coro.c	/^struct pollctx {$/;"	s	file:
+pollctx::coro	coro.c	/^    coro_t *coro;$/;"	m	struct:pollctx	file:	access:public
+pollctx::events	coro.c	/^    int events;$/;"	m	struct:pollctx	file:	access:public
+pollctx::fd	coro.c	/^    int fd;$/;"	m	struct:pollctx	file:	access:public
+pollctx::is_wait	coro.c	/^    int is_wait;$/;"	m	struct:pollctx	file:	access:public
+pollctx::next	coro.c	/^    struct pollctx *next;$/;"	m	struct:pollctx	typeref:struct:pollctx::pollctx	file:	access:public
+pollctx::revents	coro.c	/^    int revents;$/;"	m	struct:pollctx	file:	access:public
+pollnum	main.c	/^int pollnum = 0;$/;"	v
+pollnum2	main.c	/^int pollnum2 = 0;$/;"	v
+port	main.c	/^int port = 0;$/;"	v
+prev	coro.c	/^struct list { struct list *next, *prev; };$/;"	m	struct:list	typeref:struct:list::	file:	access:public
+rcvtimeout	coro.c	/^    int rcvtimeout;$/;"	m	struct:coro_context	file:	access:public
+revents	coro.c	/^    int revents;$/;"	m	struct:pollctx	file:	access:public
+run_count	coro.c	/^    int run_count;$/;"	m	struct:coro_context	file:	access:public
+runable	coro.c	/^    struct list runable;$/;"	m	struct:coro_context	typeref:struct:coro_context::list	file:	access:public
+schedule	coro.c	/^static void schedule(void)$/;"	f	file:	signature:(void)
+schedule_time	coro.c	/^    uint64_t schedule_time;$/;"	m	struct:coro	file:	access:public
+seq_id	coro.c	/^    unsigned short seq_id;$/;"	m	struct:coro	file:	access:public
+server_lim	main.c	/^void server_lim(struct client *n)$/;"	f	signature:(struct client *n)
+server_main	main.c	/^void server_main(void)$/;"	f	signature:(void)
+set_nonblock	main.c	/^int set_nonblock(int fd)$/;"	f	signature:(int fd)
+size	coro.c	/^struct heap { size_t nodes; size_t size; coro_t **heaps; };$/;"	m	struct:heap	file:	access:public
+sndtimeout	coro.c	/^    int sndtimeout;$/;"	m	struct:coro_context	file:	access:public
+sptime	main.c	/^unsigned long long sptime = 0;$/;"	v
+st_mstime	main.c	/^static uint64_t st_mstime(void)$/;"	f	file:	signature:(void)
+stack_size	coro.c	/^    int stack_size;$/;"	m	struct:coro_context	file:	access:public
+state	coro.c	/^    int state;$/;"	m	struct:coro	file:	access:public
+summ	main.c	/^static void summ(unsigned long long t)$/;"	f	file:	signature:(unsigned long long t)
+summ_printf	main.c	137;"	d	file:
+thread_main	coro.c	/^static void thread_main(void (*fn) (void *), void *arg)$/;"	f	file:	signature:(void (*fn) (void *), void *arg)
+timer	coro.c	/^    struct heap timer;$/;"	m	struct:coro_context	typeref:struct:coro_context::heap	file:	access:public
+timer_add	coro.c	/^static int timer_add(struct heap *h, coro_t *coro, uint64_t timeout)$/;"	f	file:	signature:(struct heap *h, coro_t *coro, uint64_t timeout)
+timer_del	coro.c	/^static void timer_del(struct heap *h, coro_t *coro)$/;"	f	file:	signature:(struct heap *h, coro_t *coro)
+timer_dispatch	coro.c	/^static void timer_dispatch(struct heap *h)$/;"	f	file:	signature:(struct heap *h)
+timer_min	coro.c	/^static coro_t *timer_min(struct heap *h)$/;"	f	file:	signature:(struct heap *h)
+tootm	main.c	/^int tootm[9] = { 0, };$/;"	v
+total	main.c	/^int total = 1;$/;"	v
+total_count	coro.c	/^    int total_count;$/;"	m	struct:coro_context	file:	access:public
+ustime	coro.c	/^static uint64_t ustime(void)$/;"	f	file:	signature:(void)
+vstackid	coro.c	/^    unsigned int vstackid;$/;"	m	struct:coro	file:	access:public
+zombie	coro.c	/^    struct list zombie;$/;"	m	struct:coro_context	typeref:struct:coro_context::list	file:	access:public

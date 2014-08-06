@@ -151,16 +151,16 @@ void server_lim(struct client *n)
         ssize_t r = coro_read_fully(fd, buff, 1024);
         ssize_t w = 0;
         if (r <= 0) {
-            printf("errno = %d, errmsg = %s\n", errno, strerror(errno));
-            printf("%d read err, close\n", fd);
+            fprintf(stderr, "errno = %d, errmsg = %s\n", errno, strerror(errno));
+            fprintf(stderr, "%d read err, close\n", fd);
             close(fd);
             return;
         }
 
         w = coro_write(fd, buff, r);
         if (w != r) {
-            printf("errno = %d, errmsg = %s\n", errno, strerror(errno));
-            printf("%d write err, close\n", fd);
+            fprintf(stderr, "errno = %d, errmsg = %s\n", errno, strerror(errno));
+            fprintf(stderr, "%d write err, close\n", fd);
             close(fd);
             return;
         }
@@ -171,7 +171,9 @@ void server_lim(struct client *n)
 
         if (total % 100000 == 0) {
             unsigned long long t = st_mstime() - beg;
-            printf("server: rec = %d, totl = %llu, avg = %llu, sp = %llu, asp = %llu, poll = %d,%d\n", total, t, t / total, sptime, sptime / total, pollnum,pollnum2);
+            printf("server:total_cnt=%d, run_cnt=%d, active_cnt=%d, rec = %d, totaltime = %llu, avg = %llu, sp = %llu, asp = %llu, poll = %d,%d\n",
+                            _coro_ctx(total_count),_coro_ctx(run_count),_coro_ctx(active_count),
+                            total, t, t / total, sptime, sptime / total, pollnum,pollnum2);
             summ_printf();
         }
 
@@ -187,6 +189,7 @@ int listfd = 0;
 int accnum = 0;
 void server_main(void)
 {
+    printf("server_main() coro seq_id=%d\n",_coro(seq_id));
     for (;;) {
         struct client client;
         client.addr_len = sizeof(client.addr);
@@ -196,6 +199,7 @@ void server_main(void)
             accnum++;
             coro_create((void (*)(void *))server_main, NULL);
             server_lim(&client);
+            return; // will core. why?
         } else {
             coro_yield();
         }
@@ -224,16 +228,16 @@ void client_main(void *argv)
             ssize_t r = 0;
 
             if (w != 1024) {
-                printf("errno = %d, errmsg = %s\n", errno, strerror(errno));
-                printf("%d write failed close\n", fd);
+                fprintf(stderr,"errno = %d, errmsg = %s\n", errno, strerror(errno));
+                fprintf(stderr,"%d write failed close\n", fd);
                 close(fd);
                 break;
             }
 
             r = coro_read_fully(fd, buff, w);
             if (r < 0) {
-                printf("errno = %d, errmsg = %s\n", errno, strerror(errno));
-                printf("%d read failed close %llu, %d %d\n", fd, st_mstime() - st, (int)r, (int)w);
+                fprintf(stderr,"errno = %d, errmsg = %s\n", errno, strerror(errno));
+                fprintf(stderr,"%d read failed close %llu, %d %d\n", fd, st_mstime() - st, (int)r, (int)w);
             }
 
             if (r <= 0) {
@@ -249,7 +253,9 @@ void client_main(void *argv)
 
             if (total % 100000 == 0) {
                 unsigned long long t = st_mstime() - beg;
-                printf("client: rec = %d, totl = %llu, avg = %llu, sp = %llu, asp = %llu, poll = %d,%d\n", total, t, t / total, sptime, sptime / total, pollnum,pollnum2);
+                printf("client:total_cnt=%d, run_cnt=%d, active_cnt=%d, rec = %d, totl = %llu, avg = %llu, sp = %llu, asp = %llu, poll = %d,%d\n",
+                                _coro_ctx(total_count),_coro_ctx(run_count),_coro_ctx(active_count),
+                                total, t, t / total, sptime, sptime / total, pollnum,pollnum2);
                 summ_printf();
             }
             coro_yield();
@@ -276,16 +282,17 @@ int main(int argc, char *argv[])
             printf("listen failed: %d, %s\n", errno, strerror(errno));
             exit(1);
         }
-        for (i = 0; i < 50; i++)
+        //for (i = 0; i < 50; i++)
             coro_create((void (*)(void *))server_main, NULL);
     } else {
-        for (i = 0; i < 200; i++) {
+        for (i = 0; i < 5; i++) {
             coro_create(client_main, NULL);
         }
     }
 
     for (;;) {
-        coro_yield();
+        // coro_yield();
+        coro_sleep(10*100*1000);
     }
 
     return 0;

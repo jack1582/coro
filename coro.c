@@ -26,6 +26,7 @@
 #define LIST_ADD(e,l) do {(e)->next=(l)->next;(e)->prev=(l);(l)->next->prev=(e);(l)->next=(e);} while (0)
 #define LIST_ADD_TAIL(e,l) do {(e)->next=(l);(e)->prev=(l)->prev;(l)->prev->next=(e);(l)->prev=(e);} while (0)
 
+
 struct list { struct list *next, *prev; };
 
 struct coro {
@@ -40,6 +41,13 @@ struct coro {
     uint64_t expires;
     uint64_t schedule_time;
     ucontext_t context;
+    // sequence for each coro.
+    // not changed even reused from zombie list.
+    // so that we can observe a reuse scene 
+    // valid seq_id starts from 1; 
+    // 0 means new alloced struct, also the main()'s seq_id=0;
+    // usually, seq_id=1 is the idle_main()
+    unsigned short seq_id;
 };
 
 struct pollctx {
@@ -70,9 +78,12 @@ struct coro_context {
     struct event events;
     int run_count;
     int active_count;
+    int total_count;
     int stack_size;
     int rcvtimeout;
     int sndtimeout;
+
+    unsigned short cur_seq;
 };
 
 enum {ST_RUNNING=1, ST_RUNNABLE, ST_IOWAIT, ST_SLEEPING, ST_ZOMBIE};
@@ -312,6 +323,8 @@ static void add_to_runq(struct coro_context *ctx, coro_t *coro)
     if (coro->flags & FL_ON_RUNQ)
         return;
 
+    if(coro->seq_id>1)
+        PRINT_D("before add, coro->seq_id=%d, coro->state=%d",coro->seq_id, coro->state);
     assert(coro->state != ST_ZOMBIE);
     assert(LIST_EMPTY(&coro->links));
     coro->state = ST_RUNNABLE;
@@ -413,6 +426,7 @@ int coro_init(size_t stack_size)
     ctx->rcvtimeout = 1000000;
     ctx->sndtimeout = 1000000;
 
+    ctx->cur_seq = 0;
     if (stack_size > 8 * 1024 * 1024)
         stack_size = 8 * 1024 * 1024;
     ctx->stack_size = stack_size;
@@ -439,6 +453,7 @@ int coro_init(size_t stack_size)
     ctx->main->flags = FL_MAIN;
 
     ctx->active_count = 0;
+    ctx->total_count = 0;
     CURRENT() = ctx->main;
     LOCAL() = ctx;
 
@@ -472,10 +487,12 @@ static coro_t *coro_create_impl(struct coro_context *ctx, void (*fn) (void *), v
     size_t sn = ROUNDUP(ctx->stack_size, 1024);
 
     if (LIST_EMPTY(&ctx->zombie)) { // 从zombie队列取一个
+        PRINT_D("obtain coro from calloc");
         if ((coro = (coro_t *)calloc(cn + sn, 1024)) == NULL)
             return NULL;
     } else {
         coro = container_of(coro_t, ctx->zombie.next, links);
+        PRINT_D("obtain coro from zombie list.coro->seq_id=%d, coro->state=%d", coro->seq_id, coro->state);
         assert(coro->state == ST_ZOMBIE);
         LIST_DEL(&coro->links);
     }
@@ -495,7 +512,17 @@ static coro_t *coro_create_impl(struct coro_context *ctx, void (*fn) (void *), v
 #ifdef VALGRIND
     coro->vstackid = VALGRIND_STACK_REGISTER((void *)(coro+1), (void *)(coro+n));
 #endif
+    if( !coro->seq_id ) {
+        coro->seq_id = ++ctx->cur_seq;
+        if( !coro->seq_id ) //may be round back from 65535 to 0. (unsigned short)
+            coro->seq_id = ++ctx->cur_seq;
+    }
+    PRINT_D("coro->seq_id=%d, coro->state=%d", coro->seq_id, coro->state);
     ctx->active_count++;
+    ctx->total_count++;
+    // bugfixed.
+    // missing this clause, add_to_runq will assert failed if coro is obtain from zombie.
+    coro->state = 0; 
     add_to_runq(ctx, coro);
 
     return coro;
@@ -660,4 +687,22 @@ ssize_t coro_recvmsg(int fd, struct msghdr *msg, int flags)
 ssize_t coro_sendmsg(int fd, const struct msghdr *msg, int flags)
 {
     NETOPT(sendmsg(fd, msg, flags), EPOLLOUT, LOCAL()->sndtimeout);
+}
+
+// for debug and test 
+int _coro_ctx_run_count() 
+{
+        return LOCAL()->run_count;
+}
+int _coro_ctx_active_count() 
+{
+        return LOCAL()->active_count;
+}
+int _coro_ctx_total_count() 
+{
+        return LOCAL()->total_count;
+}
+int _coro_seq_id()
+{
+        return CURRENT()->seq_id;
 }
