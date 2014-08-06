@@ -28,6 +28,7 @@ extern "C" {
     void    coro_yield(void);
     int     coro_poll(int fd, int events, int timeout);
     int     coro_sleep(int usec);
+    int     coro_make_pool(int n);
 
     void    coro_set_rcvtimeout(size_t timeout);
     void    coro_set_sndtimeout(size_t timeout);
@@ -44,11 +45,13 @@ extern "C" {
     ssize_t coro_recvmsg(int fd, struct msghdr *msg, int flags);
     ssize_t coro_sendmsg(int fd, const struct msghdr *msg, int flags);
 
-//---------------------------------
-    int _coro_ctx_run_count(); // for debug and test 
-    int _coro_ctx_active_count(); // for debug and test 
-    int _coro_ctx_total_count(); // for debug and test 
+//-------------------- for debug and test -------------
+    int _coro_ctx_run_count();
+    int _coro_ctx_active_count();
+    int _coro_ctx_total_count();
+    int _coro_ctx_cur_seq();
     int _coro_seq_id();
+    //void schedule();  // will hang for ever
 #define _coro_ctx(member) _coro_ctx_##member()
 #define _coro(member) _coro_##member()
 

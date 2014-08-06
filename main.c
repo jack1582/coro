@@ -184,6 +184,8 @@ void server_lim(struct client *n)
 }
 
 int port = 0;
+char* ip=NULL;
+int concurrent = 0;
 
 int listfd = 0;
 int accnum = 0;
@@ -212,7 +214,7 @@ void client_main(void *argv)
     int i = 0;
     // st_sleep(random() % 500);
     for (i = 0; i < 100000; i++) {
-        int fd = create_connecter("127.0.0.1", port);
+        int fd = create_connecter(ip, port);
         if (fd < 0) {
             printf("connect failed\n");
             coro_yield();
@@ -268,31 +270,62 @@ void client_main(void *argv)
         summ_printf();
     }
 }
-
+void handle_loop(void* arg) 
+{
+    // U can do sth period here.
+    unsigned long long t = st_mstime() - beg;
+    printf("handle_loop: total_cnt=%d, cur_seq=%d, run_cnt=%d, active_cnt=%d,"
+            " rec = %d, totaltime = %llu, avg = %llu, sp = %llu, asp = %llu, poll = %d,%d\n",
+            _coro_ctx(total_count),_coro_ctx(cur_seq),_coro_ctx(run_count),_coro_ctx(active_count),
+            total, t, t / total, sptime, sptime / total, pollnum,pollnum2);
+}
+static void usage(char* exe) 
+{
+    printf("usage: %s <role>  <ip> <port> <concurrent num>\n",exe);
+}
 int main(int argc, char *argv[])
 {
     int i = 0;
+    if(argc<5) {
+        usage(argv[0]);
+        return 1;
+    }
     coro_init(8 * 1024);
 
     beg = st_mstime();
-    port = atoi(argv[2]);
+    port = atoi(argv[3]);
+    ip = argv[2];
+    concurrent = atoi(argv[4]);
+
+    //coro_make_pool(5);
+
     if (strcmp(argv[1], "client") != 0) {
-        listfd = create_listener("127.0.0.1", port);
+        listfd = create_listener(ip, port);
         if (listfd == -1) {
             printf("listen failed: %d, %s\n", errno, strerror(errno));
             exit(1);
         }
-        //for (i = 0; i < 50; i++)
+        // for (i = 0; i < 50; i++)
+        for (i = 0; i < concurrent; i++)
             coro_create((void (*)(void *))server_main, NULL);
     } else {
-        for (i = 0; i < 5; i++) {
+        //for (i = 0; i < 100; i++) {
+        for (i = 0; i < concurrent; i++) {
             coro_create(client_main, NULL);
         }
     }
 
+    time_t last_time=0 ,now_time=time(NULL);
     for (;;) {
-        // coro_yield();
-        coro_sleep(10*100*1000);
+        coro_yield();
+        time(&now_time);
+        if(now_time - last_time > 3) { // call it every 3sec
+            handle_loop(NULL);
+            last_time = now_time;
+        }
+
+        // coro_sleep(10*100*1000);
+        // schedule();
     }
 
     return 0;

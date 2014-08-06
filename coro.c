@@ -323,7 +323,7 @@ static void add_to_runq(struct coro_context *ctx, coro_t *coro)
     if (coro->flags & FL_ON_RUNQ)
         return;
 
-    if(coro->seq_id>1)
+    if( 0 && coro->seq_id>1 )
         PRINT_D("before add, coro->seq_id=%d, coro->state=%d",coro->seq_id, coro->state);
     assert(coro->state != ST_ZOMBIE);
     assert(LIST_EMPTY(&coro->links));
@@ -334,6 +334,7 @@ static void add_to_runq(struct coro_context *ctx, coro_t *coro)
     ctx->run_count++;
 }
 
+// void schedule(void)
 static void schedule(void)
 {
     int ret = 0;
@@ -442,6 +443,10 @@ int coro_init(size_t stack_size)
     if (fd_data_expand(&ctx->events, 4096) < 0)
         goto ERROR;
 
+    // move here before create any coro
+    ctx->active_count = 0;
+    ctx->total_count = 0;
+
     if (!(ctx->idle = coro_create_impl(ctx, idle_main, NULL)))
         goto ERROR;
     ctx->idle->flags |= FL_IDLE;
@@ -452,8 +457,6 @@ int coro_init(size_t stack_size)
     ctx->main->state = ST_RUNNING;
     ctx->main->flags = FL_MAIN;
 
-    ctx->active_count = 0;
-    ctx->total_count = 0;
     CURRENT() = ctx->main;
     LOCAL() = ctx;
 
@@ -490,6 +493,7 @@ static coro_t *coro_create_impl(struct coro_context *ctx, void (*fn) (void *), v
         PRINT_D("obtain coro from calloc");
         if ((coro = (coro_t *)calloc(cn + sn, 1024)) == NULL)
             return NULL;
+        ctx->total_count++;
     } else {
         coro = container_of(coro_t, ctx->zombie.next, links);
         PRINT_D("obtain coro from zombie list.coro->seq_id=%d, coro->state=%d", coro->seq_id, coro->state);
@@ -498,6 +502,7 @@ static coro_t *coro_create_impl(struct coro_context *ctx, void (*fn) (void *), v
     }
 
     if (getcontext(&coro->context) == -1) {
+        ctx->total_count--;
         free(coro);
         return NULL;
     }
@@ -514,14 +519,16 @@ static coro_t *coro_create_impl(struct coro_context *ctx, void (*fn) (void *), v
 #endif
     if( !coro->seq_id ) {
         coro->seq_id = ++ctx->cur_seq;
-        if( !coro->seq_id ) //may be round back from 65535 to 0. (unsigned short)
+        if( !coro->seq_id ) //may be rewind from 65535 back to 0. (unsigned short)
             coro->seq_id = ++ctx->cur_seq;
     }
-    PRINT_D("coro->seq_id=%d, coro->state=%d", coro->seq_id, coro->state);
+    // PRINT_D("coro->seq_id=%d, coro->state=%d", coro->seq_id, coro->state);
     ctx->active_count++;
-    ctx->total_count++;
-    // bugfixed.
-    // missing this clause, add_to_runq will assert failed if coro is obtain from zombie.
+    /*
+     * bugfixed.
+     * if we dont reset the state,
+     * add_to_runq will throw a assert failure when coro is obtain from zombie.
+     */
     coro->state = 0; 
     add_to_runq(ctx, coro);
 
@@ -543,7 +550,18 @@ int coro_sleep(int usec)
 
 	return 0;
 }
+static void noop(void* arg) { return; }
+int coro_make_pool(int n) 
+{
+    // create a pool of co-process
+    int i=0;
+    while(i++<n)
+        coro_create(noop, NULL);
 
+    // make the coro in pool become running then zombie
+    coro_yield();
+    return n;
+}
 int coro_poll(int fd, int events, int timeout)
 {
     coro_t *me = CURRENT();
@@ -701,6 +719,10 @@ int _coro_ctx_active_count()
 int _coro_ctx_total_count() 
 {
         return LOCAL()->total_count;
+}
+int _coro_ctx_cur_seq()
+{
+    return LOCAL()->cur_seq;
 }
 int _coro_seq_id()
 {
